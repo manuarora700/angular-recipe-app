@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params } from '@angular/router';
+import { Recipe } from '../recipe.modal';
 import { RecipeService } from '../recipe.service';
 
 @Component({
@@ -27,7 +28,17 @@ export class RecipeEditComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.recipeForm);
+    // console.log(this.recipeForm);
+    if(this.editMode) {
+      // const newRecipe = new Recipe(this.recipeForm.value['name'], 
+      // this.recipeForm.value['description'], 
+      // this.recipeForm.value['imagePath'],
+      // this.recipeForm.value['ingredients']);
+      this.recipeService.updateRecipe(this.id, this.recipeForm.value); // this.recipeForm.value is the shorthand notation of all the work done above in comments
+    } else {
+    this.recipeService.addRecipe(this.recipeForm.value);
+    }
+
   }
 
   onAddIngredient() {
